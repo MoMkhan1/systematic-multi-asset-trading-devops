@@ -1,197 +1,165 @@
-# Systematic Multi-Asset Trading and Risk Management System
+# Systematic Multi-Asset Trading & Risk Management System
 
-## Project Overview
-This project is a production-ready framework for systematic multi-asset portfolio management. It combines:
-
-- Algorithmic trading strategies (Mean-Variance Optimization, Momentum Trading, Delta-Hedging)  
-- Risk management metrics (volatility, Sharpe ratio, max drawdown)  
-- Automated simulations using Docker and AWS  
-- Database integration with PostgreSQL for storing historical and simulation data  
-- Optional machine learning models for predictive portfolio allocation  
-
-It is modular, reproducible, and scalable, suitable for quant developer roles and cloud deployment.
+A Python-based **multi-asset trading simulator with portfolio optimization, risk metrics, transaction cost modeling, and stress testing. Integrated with Docker and **CI/CD pipelines** for DevOps deployment.
 
 ---
 
-## Problem Statement
-Investors and quantitative teams face challenges in:
+## 🚀 Project Overview
 
-1. Allocating capital efficiently across multiple assets  
-2. Testing systematic trading strategies over historical data  
-3. Tracking portfolio performance and risk metrics  
-4. Scaling simulations in a production environment  
+This project implements a systematic trading system for multiple assets (AAPL, MSFT, GOOG, TSLA) using:
 
-This project solves these problems by providing an **automated, database-backed, cloud-deployable system** for multi-asset portfolio management.
-
----
-
-## Solution Approach
-### Step 1: Define Scope
-- Assets: Stocks, ETFs, options (configurable)  
-- Strategies:  
-  - Mean-Variance Optimization – optimize risk vs return  
-  - Momentum Trading – trend-following allocation  
-  - Delta-Hedging (Optional) – manage option exposure  
-- Metrics: Returns, P&L, volatility, Sharpe ratio, max drawdown  
-
-### Step 2: Prepare Data
-- Historical price data stored in PostgreSQL  
-- Calculate returns, rolling volatility, correlations  
-
-### Step 3: Implement Portfolio System
-- Asset Class: Handles data and basic computations  
-- Portfolio Class: Manages weights, P&L, rebalancing  
-- Database Module: Stores simulation results and metrics  
-
-### Step 4: Implement Trading Algorithms
-- Mean-Variance Optimization: Uses `scipy.optimize`  
-- Momentum Strategy: Allocates based on past trends  
-- Delta-Hedging (Optional): Maintains risk-neutral exposure  
-
-### Step 5: Simulation Engine
-- Iterates through historical data  
-- Applies chosen trading algorithm  
-- Updates portfolio values and logs results in PostgreSQL  
-
-### Step 6: Risk Metrics
-- Compute Volatility, Sharpe Ratio, Max Drawdown  
-- Store metrics for visualization and reporting  
-
-### Step 7: Automation & DevOps
-- Dockerized environment for reproducible runs  
-- AWS EC2/ECS deployment for scalable simulations  
-- Cron jobs or scheduler for automated runs  
-- Logs and results stored in PostgreSQL  
-
-### Step 8: Optional ML Integration
-- Predict future returns or volatility using scikit-learn or TensorFlow  
-- Dynamically adjust portfolio weights based on predictions  
-
-### Step 9: Visualization & Reporting
-- Plot cumulative returns, risk metrics  
-- Generate summary tables from PostgreSQL results  
+- Portfolio construction and mean-variance optimization  
+- Equal-weight and inverse-volatility weighting strategies  
+- A simulator with configurable rebalancing frequency  
+- Transaction cost application  
+- Stress testing scenarios (Market Crash, Bull Shock, Volatility Spike)  
+- Risk metrics analysis (Max Drawdown, VaR, CVaR, Rolling Volatility, Sharpe Ratio)  
+- Dockerized environment for easy deployment  
+- CI/CD integration using GitHub Actions  
 
 ---
 
-## Key Features
-- Multi-asset portfolio simulation  
-- Systematic trading algorithms: Mean-Variance, Momentum, Delta-Hedging  
-- Automated simulations with Docker and AWS  
-- PostgreSQL integration for historical and simulation data  
-- Portfolio risk metrics tracking (Volatility, Sharpe, Max Drawdown)  
-- Optional ML predictive allocation  
-- Modular, production-ready, and cloud-deployable  
+## 📁 Repository Structure
 
----
-
-## Project Structure
-systematic-multi-asset-trading/
-├── data/ # CSV files for historical prices
-├── docker/ # Dockerfile and docker-compose.yml
-├── scripts/ # Automation scripts (run simulations, cron jobs)
-├── logs/ # Simulation and error logs
-├── results/ # Output charts and summary tables
-├── db/ # PostgreSQL scripts for table creation and queries
-├── assets.py # Asset class and data handling
-├── portfolio.py # Portfolio management and P&L
-├── strategy.py # Trading algorithms
-├── simulator.py # Simulation engine
-├── ml_models.py # Optional ML prediction models
-├── utils.py # Helper functions
-├── main.py # Run full simulation
-└── README.md # Project description and instructions
+systematic-multi-asset-trading-devops/
+│
+├─ main.py # Main script to run the simulation
+├─ Dockerfile # Docker configuration
+├─ requirements.txt # Python dependencies
+├─ README.md # Project documentation
+├─ .dockerignore # Files to ignore in Docker build
+├─ assets.py # Asset data handling
+├─ portfolio.py # Portfolio computation
+├─ strategy.py # Portfolio strategies
+├─ sim_engine.py # Simulation engine
+├─ simulator.py # Portfolio simulator
+├─ transaction_costs.py # Transaction cost application
+├─ stress_testing.py # Stress testing module
+├─ risk_metrics.py # Risk metrics calculation
+├─ visualization.py # Visualization functions
+├─ ml_models.py # Machine learning models (optional)
+├─ results/ # Output folder for results (generated)
+├─ data/ # Historical price data
+├─ logs/ # Logs (optional)
+├─ .github/workflows/ # CI/CD workflow for GitHub Actions
+└─ tests/ # Unit tests (optional)
 
 
 ---
 
-## Technologies & Tools
-- Python: NumPy, pandas, SciPy, matplotlib  
-- PostgreSQL: Data storage and results management  
-- Docker: Containerization for reproducibility  
-- AWS EC2 / ECS: Cloud deployment  
-- Optional: scikit-learn, TensorFlow for ML models  
-- Git for version control  
+## ⚡ Features
+
+1. Portfolio Analysis
+   - Computes returns, volatility, Sharpe ratio
+   - Supports multiple weighting strategies  
+
+2. Simulation
+   - Forward simulation of portfolio returns  
+   - Supports monthly rebalancing (`M`)  
+
+3. Transaction Costs
+   - Applies trading cost rates to net returns  
+
+4. Stress Testing
+   - Scenarios: Market Crash (-30%, -50%), Bull Shock (+20%), Volatility Spike, Moderate Drawdown  
+   - Generates scenario returns and metrics  
+
+5. Risk Metrics
+   - Max Drawdown, VaR, CVaR, rolling volatility, Sharpe ratio  
+
+6. Visualizations
+   - Cumulative returns, rolling volatility, rolling Sharpe ratio  
 
 ---
 
-## Getting Started
-1. Clone the repository:  
+## 🐳 Docker
+
+Build and run the project in a container:
+
 ```bash
-git clone https://github.com/MoMKhan1/systematic-multi-asset-trading.git
+# Build Docker image
+docker build -t systematic-multi-asset-trading .
 
+# Run the simulation inside Docker
+docker run --rm systematic-multi-asset-trading
 
-Build Docker container:
+✅ The results are saved in the results/ folder inside the container.
 
-docker build -t multi-asset-trading .
+⚙️ GitHub Actions CI/CD
 
+Workflow file: .github/workflows/docker-ci.yml
 
-Run Docker container:
+Automatically builds Docker image and runs the simulation on every push to main.
 
-docker run -it multi-asset-trading
+Example workflow triggers:
+name: Docker CI
 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-PostgreSQL setup:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t systematic-multi-asset-trading .
+      - name: Run container
+        run: docker run --rm systematic-multi-asset-trading
+📊 Results
 
-Create database trading_db
+Simulation Output: Portfolio returns and cumulative returns
 
-Run table creation scripts from db/ folder
+Transaction Costs: Net returns after applying trading costs
 
-Configure connection in utils.py
+Stress Testing: Scenario returns and metrics
 
-Run main simulation:
+Risk Metrics: Max Drawdown, VaR, CVaR, Rolling Volatility, Sharpe Ratio
+
+All results are stored in the results/ folder.
+
+⚡ Getting Started
+
+1. Clone the repository:
+
+git clone https://github.com/MoMkhan1/systematic-multi-asset-trading-devops.git
+cd systematic-multi-asset-trading-devops
+
+2. Install dependencies:
+
+pip install -r requirements.txt
+
+3. Run the simulation:
 
 python main.py
 
+Or using Docker:
 
-View results:
+docker build -t systematic-multi-asset-trading .
+docker run --rm systematic-multi-asset-trading
 
-Charts and metrics in results/
+☁️ AWS & Deployment (Optional)
 
-Logs in logs/
+Docker container can be deployed to:
 
-Metrics stored in PostgreSQL
+AWS ECS or EKS for scalable containerized execution
 
-Example Output
+AWS EC2 for single-instance deployment
 
-Portfolio cumulative returns chart
+Use GitHub Actions to automate CI/CD for AWS deployment.
 
-Risk metrics table (Volatility, Sharpe ratio, Max Drawdown)
+📄 License
 
-Simulation logs and PostgreSQL metrics tables
+This project is licensed under MIT License.
 
-Future Enhancements
+📌 Author
 
-Add more assets (commodities, crypto)
-
-Integrate real-time data feed for live simulation
-
-Parallelize simulations for large portfolios
-
-Advanced ML predictive models
-
-Why This Project Is Valuable
-
-Demonstrates quantitative modeling, systematic trading algorithms, and risk management
-
-Shows DevOps skills: Docker, AWS, automation, PostgreSQL
-
-Modular, production-ready, and cloud-deployable
-
-Attractive for Quant Developer roles
-
-LinkedIn Project Description
-
-Project Name: Systematic Multi-Asset Trading and Risk Management System
-
-Description:
-Developed a production-ready, automated, multi-asset trading system using systematic trading algorithms (Mean-Variance, Momentum, Delta-Hedging) with risk management metrics. Integrated with PostgreSQL for storing historical data and simulation results. Deployed in Docker and optionally on AWS EC2, supporting automated, reproducible, and scalable simulations. Optional ML models allow predictive portfolio allocation.
-
-Technologies: Python, PostgreSQL, Docker, AWS, scikit-learn (optional ML), Git
-
-GitHub: https://github.com/MoMKhan1/systematic-multi-asset-trading
+Mohammed Moniruzzaman Khan
+Github:https://github.com/MoMkhan1
+LinkedIn: https://www.linkedin.com/in/mohammed-moniruzzaman-khan
 
 
----
-
-✅ 
 
