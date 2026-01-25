@@ -1,6 +1,6 @@
 # Systematic Multi-Asset Trading & Risk Management System
 
-A Python-based **multi-asset trading simulator with portfolio optimization, risk metrics, transaction cost modeling, and stress testing. Integrated with Docker and **CI/CD pipelines** for DevOps deployment.
+A Python-based multi-asset trading simulator with portfolio optimization, risk metrics, transaction cost modeling, and stress testing. Integrated with Docker and CI/CD pipelines for DevOps deployment.
 
 ---
 
